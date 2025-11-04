@@ -1,12 +1,13 @@
-// src/components/Navbar.jsx
+// src/Pages/Navbar.jsx
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
+	const role = localStorage.getItem('role');
 
 	const handleLogout = () => {
-		localStorage.removeItem('token');
+		localStorage.clear();
 		navigate('/');
 	};
 
@@ -16,8 +17,9 @@ export default function Navbar() {
 				className='navbar-brand'
 				to='/'
 			>
-				Admin Portal
+				Movie Booking
 			</Link>
+
 			<div className='collapse navbar-collapse'>
 				<ul className='navbar-nav ms-auto'>
 					{!token ? (
@@ -25,45 +27,41 @@ export default function Navbar() {
 							<li className='nav-item'>
 								<Link
 									className='nav-link'
-									to='/main-admin-login'
+									to='/login'
 								>
-									Main Admin Login
+									Login
 								</Link>
 							</li>
 							<li className='nav-item'>
 								<Link
 									className='nav-link'
-									to='/main-admin-signup'
+									to='/signup'
 								>
-									Main Admin Signup
-								</Link>
-							</li>
-							<li className='nav-item'>
-								<Link
-									className='nav-link'
-									to='/admin-login'
-								>
-									Admin Login
-								</Link>
-							</li>
-							<li className='nav-item'>
-								<Link
-									className='nav-link'
-									to='/admin-signup'
-								>
-									Admin Signup
+									Signup
 								</Link>
 							</li>
 						</>
 					) : (
-						<li className='nav-item'>
-							<button
-								className='btn btn-danger'
-								onClick={handleLogout}
-							>
-								Logout
-							</button>
-						</li>
+						role === 'USER' && (
+							<>
+								<li className='nav-item'>
+									<Link
+										className='nav-link'
+										to='/home'
+									>
+										Home
+									</Link>
+								</li>
+								<li className='nav-item'>
+									<button
+										className='btn btn-danger ms-3'
+										onClick={handleLogout}
+									>
+										Logout
+									</button>
+								</li>
+							</>
+						)
 					)}
 				</ul>
 			</div>

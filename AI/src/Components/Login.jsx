@@ -13,8 +13,9 @@ export default function Login() {
 		try {
 			const res = await api.post('/auth/login', { email, password });
 			localStorage.setItem('token', res.data.token);
+			localStorage.setItem('role', 'USER');
 			alert('Login successful!');
-			navigate('/chat'); // later connect to chat page
+			navigate('/home');
 		} catch (err) {
 			setError('Invalid email or password');
 		}

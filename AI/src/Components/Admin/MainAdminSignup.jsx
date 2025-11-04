@@ -1,46 +1,106 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../../Api/api.jsx';
+import { Table, Button, Container, Alert } from 'react-bootstrap';
 
-function MainAdminSignup() {
-	const [form, setForm] = useState({
-		name: '',
-		email: '',
-		password: '',
-	});
+const MainAdminDashboard = () => {
+	const [admins, setAdmins] = useState([]);
+	const [message, setMessage] = useState('');
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const fetchAdmins = async () => {
 		try {
-			const res = await api.post('/admin/main/signup', form);
-			alert(res.data.message);
-		} catch (err) {
-			alert(err.response?.data?.message || 'Signup failed');
+			const token = localStorage.getItem('token');
+			const res = await api.get('/admin/all', {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			setAdmins(res.data);
+		} catch {
+			setMessage('Failed to load admins');
+		}
+	};
+
+	useEffect(() => {
+		fetchAdmins();
+	}, []);
+
+	const approveAdmin = async (id) => {
+		try {
+			const token = localStorage.getItem('token');
+			const res = await api.put(
+				`/admin/approve/${id}`,
+				{},
+				{
+					headers: { Authorization: `Bearer ${token}` },
+				}
+			);
+			setMessage(res.data.message);
+			fetchAdmins();
+		} catch {
+			setMessage('Failed to approve admin');
+		}
+	};
+
+	const deleteAdmin = async (id) => {
+		try {
+			const token = localStorage.getItem('token');
+			const res = await api.delete(`/admin/delete/${id}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+			setMessage(res.data.message);
+			fetchAdmins();
+		} catch {
+			setMessage('Failed to delete admin');
 		}
 	};
 
 	return (
-		<div>
-			<h2>Main Admin Signup</h2>
-			<form onSubmit={handleSubmit}>
-				<input
-					type='text'
-					placeholder='Name'
-					onChange={(e) => setForm({ ...form, name: e.target.value })}
-				/>
-				<input
-					type='email'
-					placeholder='Email'
-					onChange={(e) => setForm({ ...form, email: e.target.value })}
-				/>
-				<input
-					type='password'
-					placeholder='Password'
-					onChange={(e) => setForm({ ...form, password: e.target.value })}
-				/>
-				<button type='submit'>Signup</button>
-			</form>
-		</div>
+		<Container className='mt-5'>
+			<h3>Main Admin Dashboard</h3>
+			{message && <Alert variant='info'>{message}</Alert>}
+			<Table
+				striped
+				bordered
+				hover
+			>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Approved</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{admins.map((a) => (
+						<tr key={a.id}>
+							<td>{a.id}</td>
+							<td>{a.name}</td>
+							<td>{a.email}</td>
+							<td>{a.approved ? '✅' : '❌'}</td>
+							<td>
+								{!a.approved && (
+									<Button
+										size='sm'
+										variant='success'
+										onClick={() => approveAdmin(a.id)}
+									>
+										Approve
+									</Button>
+								)}{' '}
+								<Button
+									size='sm'
+									variant='danger'
+									onClick={() => deleteAdmin(a.id)}
+								>
+									Delete
+								</Button>
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
+		</Container>
 	);
-}
+};
 
-export default MainAdminSignup;
+export default MainAdminDashboard;

@@ -1,41 +1,67 @@
 import React, { useState } from 'react';
 import api from '../../Api/api.jsx';
+import { useNavigate } from 'react-router-dom';
+import { Form, Button, Container, Alert } from 'react-bootstrap';
 
-function AdminLogin() {
-	const [form, setForm] = useState({
-		email: '',
-		password: '',
-	});
+const AdminLogin = () => {
+	const [formData, setFormData] = useState({ email: '', password: '' });
+	const [message, setMessage] = useState('');
+	const navigate = useNavigate();
 
-	const handleLogin = async (e) => {
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await api.post('/admin/login', form);
+			const res = await api.post('/admin/login', formData);
 			localStorage.setItem('token', res.data.token);
-			alert('Admin Logged In');
+			localStorage.setItem('role', 'ADMIN');
+			navigate('/admin/dashboard');
 		} catch (err) {
-			alert(err.response?.data?.message || 'Login failed');
+			setMessage(err.response?.data?.message || 'Login failed');
 		}
 	};
 
 	return (
-		<div>
-			<h2>Admin Login</h2>
-			<form onSubmit={handleLogin}>
-				<input
-					type='email'
-					placeholder='Email'
-					onChange={(e) => setForm({ ...form, email: e.target.value })}
-				/>
-				<input
-					type='password'
-					placeholder='Password'
-					onChange={(e) => setForm({ ...form, password: e.target.value })}
-				/>
-				<button type='submit'>Login</button>
-			</form>
-		</div>
+		<Container
+			className='mt-5'
+			style={{ maxWidth: '400px' }}
+		>
+			<h3>Admin Login</h3>
+			{message && <Alert variant='danger'>{message}</Alert>}
+			<Form onSubmit={handleSubmit}>
+				<Form.Group className='mb-3'>
+					<Form.Label>Email</Form.Label>
+					<Form.Control
+						type='email'
+						name='email'
+						value={formData.email}
+						onChange={handleChange}
+						required
+					/>
+				</Form.Group>
+				<Form.Group className='mb-3'>
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						type='password'
+						name='password'
+						value={formData.password}
+						onChange={handleChange}
+						required
+					/>
+				</Form.Group>
+				<Button
+					type='submit'
+					variant='primary'
+					className='w-100'
+				>
+					Login
+				</Button>
+			</Form>
+		</Container>
 	);
-}
+};
 
 export default AdminLogin;

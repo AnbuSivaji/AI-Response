@@ -1,3 +1,4 @@
+// src/Components/Admin/AdminNavbar.jsx
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function AdminNavbar() {
@@ -7,7 +8,7 @@ export default function AdminNavbar() {
 
 	const handleLogout = () => {
 		localStorage.clear();
-		navigate('/admin/main-admin-login');
+		navigate('/');
 	};
 
 	return (
@@ -18,6 +19,7 @@ export default function AdminNavbar() {
 			>
 				Admin Portal
 			</Link>
+
 			<div className='collapse navbar-collapse'>
 				<ul className='navbar-nav ms-auto'>
 					{!token ? (
