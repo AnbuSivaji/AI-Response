@@ -7,6 +7,7 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import ForgotPassword from './Components/ForgotPassword';
 import Home from './Pages/Home';
+import History from './Pages/History';
 
 // ADMIN COMPONENTS
 import AdminNavbar from './Components/Admin/AdminNavbar';
@@ -86,6 +87,7 @@ export default function App() {
 							<>
 								<Navbar />
 								<Home />
+								<History />
 							</>
 						</ProtectedUserRoute>
 					}

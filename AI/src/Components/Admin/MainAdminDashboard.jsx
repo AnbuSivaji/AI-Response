@@ -1,14 +1,22 @@
+// src/Pages/Admin/MainAdminDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import api from '../../Api/api.jsx';
 import { Table, Button, Container, Alert, Tabs, Tab } from 'react-bootstrap';
+import AnalyticsDashboard from './AnalyticsDashboard.jsx';
 
-const MainAdminDashboard = () => {
+export default function MainAdminDashboard() {
 	const [admins, setAdmins] = useState([]);
 	const [users, setUsers] = useState([]);
+	const [queries, setQueries] = useState([]);
 	const [message, setMessage] = useState('');
 	const [activeTab, setActiveTab] = useState('admins');
 
-	// ---- Fetch Admins ----
+	useEffect(() => {
+		fetchAdmins();
+		fetchUsers();
+		fetchQueries();
+	}, []);
+
 	const fetchAdmins = async () => {
 		try {
 			const res = await api.get('/admin/all');
@@ -18,7 +26,6 @@ const MainAdminDashboard = () => {
 		}
 	};
 
-	// ---- Fetch Users ----
 	const fetchUsers = async () => {
 		try {
 			const res = await api.get('/admin/users/all');
@@ -28,10 +35,14 @@ const MainAdminDashboard = () => {
 		}
 	};
 
-	useEffect(() => {
-		fetchAdmins();
-		fetchUsers();
-	}, []);
+	const fetchQueries = async () => {
+		try {
+			const res = await api.get('/admin/queries/all');
+			setQueries(res.data);
+		} catch {
+			setMessage('Failed to load queries');
+		}
+	};
 
 	const approveAdmin = async (id) => {
 		try {
@@ -73,17 +84,27 @@ const MainAdminDashboard = () => {
 		}
 	};
 
+	const deleteQuery = async (id) => {
+		try {
+			const res = await api.delete(`/admin/queries/${id}`);
+			setMessage(res.data);
+			fetchQueries();
+		} catch {
+			setMessage('Failed to delete query');
+		}
+	};
+
 	return (
 		<Container className='mt-5'>
-			<h3>Main Admin Dashboard 🧩</h3>
+			<h3>🧩 Main Admin Dashboard</h3>
 			{message && <Alert variant='info'>{message}</Alert>}
 
 			<Tabs
-				id='main-admin-tabs'
 				activeKey={activeTab}
 				onSelect={(k) => setActiveTab(k)}
 				className='mb-3'
 			>
+				{/* Manage Admins */}
 				<Tab
 					eventKey='admins'
 					title='Manage Admins'
@@ -133,6 +154,7 @@ const MainAdminDashboard = () => {
 					</Table>
 				</Tab>
 
+				{/* Manage Users */}
 				<Tab
 					eventKey='users'
 					title='Manage Users'
@@ -179,9 +201,56 @@ const MainAdminDashboard = () => {
 						</tbody>
 					</Table>
 				</Tab>
+
+				{/* Manage Queries */}
+				<Tab
+					eventKey='queries'
+					title='Manage Queries'
+				>
+					<Table
+						striped
+						bordered
+						hover
+					>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>User Email</th>
+								<th>Query</th>
+								<th>Time</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{queries.map((q) => (
+								<tr key={q.id}>
+									<td>{q.id}</td>
+									<td>{q.email}</td>
+									<td>{q.queryText}</td>
+									<td>{new Date(q.timestamp).toLocaleString()}</td>
+									<td>
+										<Button
+											size='sm'
+											variant='danger'
+											onClick={() => deleteQuery(q.id)}
+										>
+											Delete
+										</Button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
+				</Tab>
+
+				{/* Analytics */}
+				<Tab
+					eventKey='analytics'
+					title='📊 Analytics'
+				>
+					<AnalyticsDashboard />
+				</Tab>
 			</Tabs>
 		</Container>
 	);
-};
-
-export default MainAdminDashboard;
+}
