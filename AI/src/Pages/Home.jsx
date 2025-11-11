@@ -12,21 +12,24 @@ export default function Home() {
 	const [profile, setProfile] = useState(null);
 	const [history, setHistory] = useState([]);
 	const [profileLoading, setProfileLoading] = useState(true);
+	const [paymentLoading, setPaymentLoading] = useState(false);
 	const chatEndRef = useRef(null);
 
-	// Scroll to bottom
+	// ✅ Auto scroll chat to bottom
 	useEffect(() => {
-		if (chatEndRef.current)
+		if (chatEndRef.current) {
 			chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
 	}, [messages]);
 
-	// Fetch profile
+	// ✅ Fetch user profile
 	useEffect(() => {
 		const fetchProfile = async () => {
 			try {
 				const res = await api.get('/user/profile');
 				setProfile(res.data);
 			} catch (err) {
+				console.error(err);
 				setError('Failed to load profile.');
 			} finally {
 				setProfileLoading(false);
@@ -35,13 +38,25 @@ export default function Home() {
 		fetchProfile();
 	}, []);
 
+	// ✅ Dynamically load Razorpay script
+	useEffect(() => {
+		const script = document.createElement('script');
+		script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+		script.async = true;
+		document.body.appendChild(script);
+		return () => {
+			document.body.removeChild(script);
+		};
+	}, []);
+
+	// ✅ Handle chat message send
 	const handleSend = async (e) => {
 		e.preventDefault();
 		if (!query.trim()) return;
 
 		const userMsg = { sender: 'user', text: query };
 		setMessages((prev) => [...prev, userMsg]);
-		setHistory((prev) => [query, ...prev.slice(0, 9)]); // Store 10 recent queries
+		setHistory((prev) => [query, ...prev.slice(0, 9)]);
 		setQuery('');
 		setLoading(true);
 		setError('');
@@ -51,9 +66,81 @@ export default function Home() {
 			const aiMsg = { sender: 'ai', text: res.data.response };
 			setMessages((prev) => [...prev, aiMsg]);
 		} catch (err) {
+			console.error(err);
 			setError(err.response?.data?.error || 'Error communicating with AI.');
 		} finally {
 			setLoading(false);
+		}
+	};
+
+	// ✅ Handle Razorpay payment
+	const handlePayment = async () => {
+		if (!window.Razorpay) {
+			alert('Razorpay SDK not loaded yet. Please wait a moment.');
+			return;
+		}
+		if (!profile?.email) {
+			alert('Please wait until your profile loads.');
+			return;
+		}
+
+		try {
+			setPaymentLoading(true);
+
+			// Step 1: Create order in backend
+			const receiptId = `receipt_${Date.now()}`;
+			const orderRes = await api.post(
+				`/payment/create-order?amount=199&receipt=${receiptId}`
+			);
+
+			let order;
+			try {
+				order = JSON.parse(orderRes.data); // backend returns JSON string
+			} catch {
+				order = orderRes.data; // in case backend already returns JSON
+			}
+
+			// Step 2: Razorpay configuration
+			const options = {
+				key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+				amount: order.amount,
+				currency: order.currency,
+				name: 'AI Assistant Pro',
+				description: 'Upgrade for more queries',
+				order_id: order.id,
+				handler: async (response) => {
+					try {
+						await api.post(
+							`/payment/verify?email=${profile.email}&success=true`
+						);
+						alert('✅ Payment Successful! Confirmation email sent.');
+					} catch (verifyErr) {
+						console.error(verifyErr);
+						alert('Payment succeeded but verification failed.');
+					}
+				},
+				prefill: {
+					email: profile.email,
+					name: profile.username || 'User',
+				},
+				theme: { color: '#5a57ff' },
+				modal: {
+					ondismiss: async () => {
+						await api.post(
+							`/payment/verify?email=${profile.email}&success=false`
+						);
+						alert('❌ Payment cancelled or failed.');
+					},
+				},
+			};
+
+			const razorpay = new window.Razorpay(options);
+			razorpay.open();
+		} catch (err) {
+			console.error(err);
+			alert('Payment error. Please try again.');
+		} finally {
+			setPaymentLoading(false);
 		}
 	};
 
@@ -84,12 +171,22 @@ export default function Home() {
 						<p>
 							<strong>Remaining:</strong> {profile.remainingQueries}
 						</p>
+
+						{/* Razorpay Payment Button */}
+						<Button
+							variant='success'
+							className='w-100 mt-2'
+							onClick={handlePayment}
+							disabled={paymentLoading}
+						>
+							{paymentLoading ? 'Processing...' : '💳 Buy More Queries (₹199)'}
+						</Button>
 					</>
 				) : (
 					<p className='text-danger'>Failed to load profile.</p>
 				)}
 
-				{/* Recent Search History */}
+				{/* Recent Queries */}
 				<div className='history'>
 					<h6>🕓 Recent Queries</h6>
 					<ul>
