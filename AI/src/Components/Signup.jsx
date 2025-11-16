@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../Api/api.jsx';
+import '../CSS/Signup.css'; // ✅ Import CSS for this page only
 
 export default function Signup() {
 	const [username, setUsername] = useState('');

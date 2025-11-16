@@ -24,6 +24,14 @@ export default function Login() {
 
 	return (
 		<div className='login-page'>
+			{/* Smoke effect layers */}
+			<div className='smoke'>
+				<div className='smoke-layer'></div>
+				<div className='smoke-layer smoke-2'></div>
+				<div className='smoke-layer smoke-3'></div>
+			</div>
+
+			{/* Login container - appears after smoke clears */}
 			<div className='login-container'>
 				<h3>User Login</h3>
 				<form onSubmit={handleLogin}>
