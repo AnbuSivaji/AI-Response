@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import api from '../../Api/api.jsx';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
+import '../../CSS/AdminLogin.css'; // ✅ Import CSS for this page only
 
 const MainAdminLogin = () => {
 	const [formData, setFormData] = useState({ email: '', password: '' });

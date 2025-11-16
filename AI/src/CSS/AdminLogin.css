@@ -1,0 +1,420 @@
+/* AdminLogin.css - Isolated Admin Login Styles */
+
+/* Very specific container selector - only affects AdminLogin */
+.container.mt-5[class*="AdminLogin"],
+.container.mt-5:has(> h3:contains("Admin Login")) {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0 !important;
+  padding: 20px;
+  max-width: 100% !important;
+}
+
+/* Unique background pattern for AdminLogin only */
+.container.mt-5[class*="AdminLogin"]::before,
+.container.mt-5:has(> h3:contains("Admin Login"))::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(42, 82, 152, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(30, 60, 114, 0.12) 0%, transparent 50%);
+  animation: adminLoginFloat 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes adminLoginFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateY(-15px) scale(1.05);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translateY(-8px) scale(1.02);
+    opacity: 0.8;
+  }
+}
+
+/* Unique security grid for AdminLogin */
+.container.mt-5[class*="AdminLogin"]::after,
+.container.mt-5:has(> h3:contains("Admin Login"))::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.08) 1px, transparent 0),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 2px, transparent 0);
+  background-size: 120px 120px, 180px 180px;
+  animation: adminLoginParticles 25s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes adminLoginParticles {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(-60px) translateY(-30px);
+  }
+}
+
+/* Form container - very specific targeting */
+.container.mt-5[class*="AdminLogin"] > .mt-5,
+.container.mt-5:has(> h3:contains("Admin Login")) > .mt-5 {
+  background: rgba(23, 42, 70, 0.85);
+  backdrop-filter: blur(25px);
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 15px 35px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(74, 144, 226, 0.2);
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(74, 144, 226, 0.3);
+  animation: adminLoginFormAppear 1.2s ease-out forwards;
+}
+
+@keyframes adminLoginFormAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Title styling - only for Admin Login */
+.container.mt-5[class*="AdminLogin"] h3,
+.container.mt-5:has(> h3:contains("Admin Login")) h3 {
+  text-align: center;
+  margin-bottom: 40px !important;
+  font-weight: 700;
+  font-size: 32px;
+  background: linear-gradient(135deg, #4a90e2, #357abd, #2a5298);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+  position: relative;
+  animation: adminTitleGlow 3s ease-in-out infinite;
+}
+
+@keyframes adminTitleGlow {
+  0%, 100% {
+    text-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+  }
+  50% {
+    text-shadow: 0 4px 25px rgba(74, 144, 226, 0.6), 0 0 30px rgba(74, 144, 226, 0.4);
+  }
+}
+
+.container.mt-5[class*="AdminLogin"] h3::after,
+.container.mt-5:has(> h3:contains("Admin Login")) h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #4a90e2, transparent);
+  border-radius: 2px;
+}
+
+/* Form group styling */
+.container.mt-5[class*="AdminLogin"] .form-group.mb-3,
+.container.mt-5:has(> h3:contains("Admin Login")) .form-group.mb-3 {
+  margin-bottom: 25px !important;
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: adminFormGroupSlide 0.8s ease-out forwards;
+}
+
+.container.mt-5[class*="AdminLogin"] .form-group.mb-3:nth-child(1),
+.container.mt-5:has(> h3:contains("Admin Login")) .form-group.mb-3:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.container.mt-5[class*="AdminLogin"] .form-group.mb-3:nth-child(2),
+.container.mt-5:has(> h3:contains("Admin Login")) .form-group.mb-3:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+@keyframes adminFormGroupSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Form labels */
+.container.mt-5[class*="AdminLogin"] .form-label,
+.container.mt-5:has(> h3:contains("Admin Login")) .form-label {
+  color: #e2e8f0;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: block;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Form controls */
+.container.mt-5[class*="AdminLogin"] .form-control,
+.container.mt-5:has(> h3:contains("Admin Login")) .form-control {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(71, 85, 105, 0.5);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 16px;
+  color: #f1f5f9;
+  transition: all 0.3s ease;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container.mt-5[class*="AdminLogin"] .form-control::placeholder,
+.container.mt-5:has(> h3:contains("Admin Login")) .form-control::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.container.mt-5[class*="AdminLogin"] .form-control:focus,
+.container.mt-5:has(> h3:contains("Admin Login")) .form-control:focus {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: #4a90e2;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 0 3px rgba(74, 144, 226, 0.2),
+    0 4px 15px rgba(0, 0, 0, 0.3);
+  color: #f1f5f9;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Button styling */
+.container.mt-5[class*="AdminLogin"] .btn-primary,
+.container.mt-5:has(> h3:contains("Admin Login")) .btn-primary {
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 15px rgba(74, 144, 226, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: adminButtonAppear 0.8s ease-out 0.7s forwards;
+}
+
+@keyframes adminButtonAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container.mt-5[class*="AdminLogin"] .btn-primary::before,
+.container.mt-5:has(> h3:contains("Admin Login")) .btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
+}
+
+.container.mt-5[class*="AdminLogin"] .btn-primary:hover,
+.container.mt-5:has(> h3:contains("Admin Login")) .btn-primary:hover {
+  background: linear-gradient(135deg, #357abd, #2a5298);
+  box-shadow: 
+    0 6px 20px rgba(74, 144, 226, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.container.mt-5[class*="AdminLogin"] .btn-primary:hover::before,
+.container.mt-5:has(> h3:contains("Admin Login")) .btn-primary:hover::before {
+  left: 100%;
+}
+
+.container.mt-5[class*="AdminLogin"] .btn-primary:active,
+.container.mt-5:has(> h3:contains("Admin Login")) .btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Alert styling */
+.container.mt-5[class*="AdminLogin"] .alert-danger,
+.container.mt-5:has(> h3:contains("Admin Login")) .alert-danger {
+  background: rgba(220, 38, 38, 0.2);
+  backdrop-filter: blur(10px);
+  color: #fecaca;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: adminAlertShake 0.5s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.container.mt-5[class*="AdminLogin"] .alert-danger::before,
+.container.mt-5:has(> h3:contains("Admin Login")) .alert-danger::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #dc2626;
+}
+
+@keyframes adminAlertShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* Admin security badge */
+.container.mt-5[class*="AdminLogin"] > .mt-5::before,
+.container.mt-5:has(> h3:contains("Admin Login")) > .mt-5::before {
+  content: '🔐 ADMIN ACCESS';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+  z-index: 3;
+  animation: adminBadgePulse 2s ease-in-out infinite;
+}
+
+@keyframes adminBadgePulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(74, 144, 226, 0.6), 0 0 20px rgba(74, 144, 226, 0.4);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .container.mt-5[class*="AdminLogin"],
+  .container.mt-5:has(> h3:contains("Admin Login")) {
+    padding: 15px;
+  }
+  
+  .container.mt-5[class*="AdminLogin"] > .mt-5,
+  .container.mt-5:has(> h3:contains("Admin Login")) > .mt-5 {
+    padding: 40px 30px;
+    border-radius: 15px;
+  }
+  
+  .container.mt-5[class*="AdminLogin"] h3,
+  .container.mt-5:has(> h3:contains("Admin Login")) h3 {
+    font-size: 28px;
+    margin-bottom: 30px !important;
+  }
+  
+  .container.mt-5[class*="AdminLogin"] .form-control,
+  .container.mt-5:has(> h3:contains("Admin Login")) .form-control {
+    padding: 12px 16px;
+  }
+  
+  .container.mt-5[class*="AdminLogin"] .btn-primary,
+  .container.mt-5:has(> h3:contains("Admin Login")) .btn-primary {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+/* Focus states for accessibility */
+.container.mt-5[class*="AdminLogin"] .form-control:focus,
+.container.mt-5[class*="AdminLogin"] .btn-primary:focus,
+.container.mt-5:has(> h3:contains("Admin Login")) .form-control:focus,
+.container.mt-5:has(> h3:contains("Admin Login")) .btn-primary:focus {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px rgba(74, 144, 226, 0.3),
+    0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Loading state */
+.container.mt-5[class*="AdminLogin"] .btn-primary:disabled,
+.container.mt-5:has(> h3:contains("Admin Login")) .btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.container.mt-5[class*="AdminLogin"] .btn-primary:disabled:hover,
+.container.mt-5:has(> h3:contains("Admin Login")) .btn-primary:disabled:hover {
+  transform: none !important;
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+}

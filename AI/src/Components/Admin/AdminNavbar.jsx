@@ -1,5 +1,6 @@
 // src/Components/Admin/AdminNavbar.jsx
 import { Link, useNavigate } from 'react-router-dom';
+import '../../CSS/AdminNavbar.css'; // ✅ Import CSS for this component only
 
 export default function AdminNavbar() {
 	const navigate = useNavigate();

@@ -1,0 +1,244 @@
+/* MainAdminDashboard.css - Unique Color Scheme */
+
+/* Main container styling - very specific selector */
+.container.mt-5[class*="MainAdminDashboard"] {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  min-height: 100vh;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px !important;
+}
+
+/* Title styling */
+.container.mt-5[class*="MainAdminDashboard"] h3 {
+  color: #ff6b6b !important;
+  text-align: center;
+  margin-bottom: 30px !important;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+  border-bottom: 3px solid #ff6b6b;
+  padding-bottom: 10px;
+}
+
+/* Alert styling */
+.container.mt-5[class*="MainAdminDashboard"] .alert-info {
+  background: rgba(86, 207, 225, 0.2) !important;
+  border: 2px solid #56cfe1 !important;
+  color: #56cfe1 !important;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* Tabs styling */
+.container.mt-5[class*="MainAdminDashboard"] .nav-tabs {
+  border-bottom: 3px solid #7400b8;
+  margin-bottom: 25px;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .nav-link {
+  color: #72efdd !important;
+  background: rgba(114, 239, 221, 0.1) !important;
+  border: 2px solid transparent !important;
+  margin-right: 5px;
+  border-radius: 8px 8px 0 0 !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .nav-link:hover {
+  color: #7400b8 !important;
+  background: rgba(116, 0, 184, 0.2) !important;
+  border-color: #7400b8 !important;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .nav-link.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #7400b8, #6930c3) !important;
+  border-color: #7400b8 !important;
+  font-weight: 700;
+}
+
+/* Table styling */
+.container.mt-5[class*="MainAdminDashboard"] .table {
+  background: rgba(26, 26, 46, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table thead {
+  background: linear-gradient(135deg, #7400b8, #5e60ce) !important;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table th {
+  color: #ffffff !important;
+  border: none !important;
+  padding: 15px !important;
+  font-weight: 700;
+  text-align: center;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table td {
+  color: #72efdd !important;
+  border-color: #4ea8de !important;
+  padding: 12px !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table-striped tbody tr:nth-of-type(odd) {
+  background: rgba(114, 239, 221, 0.05) !important;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table-striped tbody tr:nth-of-type(even) {
+  background: rgba(78, 168, 222, 0.05) !important;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table-hover tbody tr:hover {
+  background: rgba(86, 207, 225, 0.1) !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Button styling */
+.container.mt-5[class*="MainAdminDashboard"] .btn {
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin: 2px;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .btn-sm {
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+}
+
+/* Success button - Approve */
+.container.mt-5[class*="MainAdminDashboard"] .btn-success {
+  background: linear-gradient(135deg, #4cc9f0, #4361ee) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(76, 201, 240, 0.4);
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .btn-success:hover {
+  background: linear-gradient(135deg, #4361ee, #3a0ca3) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(67, 97, 238, 0.6);
+}
+
+/* Danger button - Delete */
+.container.mt-5[class*="MainAdminDashboard"] .btn-danger {
+  background: linear-gradient(135deg, #f72585, #b5179e) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(247, 37, 133, 0.4);
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .btn-danger:hover {
+  background: linear-gradient(135deg, #b5179e, #7209b7) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(181, 23, 158, 0.6);
+}
+
+/* Warning button - Block */
+.container.mt-5[class*="MainAdminDashboard"] .btn-warning {
+  background: linear-gradient(135deg, #f48c06, #e85d04) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(244, 140, 6, 0.4);
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .btn-warning:hover {
+  background: linear-gradient(135deg, #e85d04, #dc2f02) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232, 93, 4, 0.6);
+}
+
+/* Status indicators */
+.container.mt-5[class*="MainAdminDashboard"] .table td:contains("✅") {
+  color: #4cc9f0 !important;
+  font-size: 18px;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table td:contains("❌") {
+  color: #f72585 !important;
+  font-size: 18px;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table td:contains("🟢") {
+  color: #4cc9f0 !important;
+  font-weight: 600;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table td:contains("🔴") {
+  color: #f72585 !important;
+  font-weight: 600;
+}
+
+/* Tab content background */
+.container.mt-5[class*="MainAdminDashboard"] .tab-content {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 0 0 15px 15px;
+  padding: 25px;
+  border: 2px solid #7400b8;
+  border-top: none;
+}
+
+/* Analytics tab specific */
+.container.mt-5[class*="MainAdminDashboard"] .tab-pane[data-rb-event-key="analytics"] {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container.mt-5[class*="MainAdminDashboard"] {
+    padding: 10px;
+    margin: 10px !important;
+  }
+  
+  .container.mt-5[class*="MainAdminDashboard"] .table {
+    font-size: 12px;
+  }
+  
+  .container.mt-5[class*="MainAdminDashboard"] .btn-sm {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+    margin: 1px;
+  }
+  
+  .container.mt-5[class*="MainAdminDashboard"] .nav-link {
+    font-size: 12px;
+    padding: 8px 12px !important;
+  }
+}
+
+/* Custom scrollbar for table */
+.container.mt-5[class*="MainAdminDashboard"] .table-responsive::-webkit-scrollbar {
+  height: 8px;
+  background: rgba(114, 239, 221, 0.1);
+  border-radius: 4px;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table-responsive::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #7400b8, #5e60ce);
+  border-radius: 4px;
+}
+
+.container.mt-5[class*="MainAdminDashboard"] .table-responsive::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5e60ce, #4ea8de);
+}
+
+/* Loading states */
+.container.mt-5[class*="MainAdminDashboard"] .btn:disabled {
+  opacity: 0.5;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Focus states for accessibility */
+.container.mt-5[class*="MainAdminDashboard"] .btn:focus,
+.container.mt-5[class*="MainAdminDashboard"] .nav-link:focus {
+  box-shadow: 0 0 0 3px rgba(116, 0, 184, 0.5) !important;
+  outline: none;
+}

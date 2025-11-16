@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../Api/api.jsx';
 import { Table, Button, Container, Alert, Tabs, Tab } from 'react-bootstrap';
 import AnalyticsDashboard from './AnalyticsDashboard.jsx';
+import '../../CSS/MainAdminDashboard.css'; // ✅ Import CSS for this page only
 
 export default function MainAdminDashboard() {
 	const [admins, setAdmins] = useState([]);
